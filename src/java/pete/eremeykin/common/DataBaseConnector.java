@@ -34,8 +34,8 @@ public class DataBaseConnector {
         connection.close();
     }
 
-    public static Connection getConnection() {
-        Connection connection = null;
+    private Connection getConnection() {
+        connection = null;
         try {
             Context context = new InitialContext();
             DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
@@ -47,20 +47,26 @@ public class DataBaseConnector {
         }
     }
 
-    public static void executeSQLcmd(Connection connection, String sqlCmd) throws SQLException {
+    public void executeSQLcmd(String sqlCmd) throws SQLException {
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         statement.executeQuery(sqlCmd);
     }
 
-    public static void insertInfo(Connection connection, String login, String password) throws SQLException, NoSuchAlgorithmException {
+    public void insertInfo(String login, String password) throws SQLException, NoSuchAlgorithmException {
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO \"USERS_INFO\" VALUES (?, ?)");
         preparedStatement.setNString(1, login);
-        password = HashCoder.getSHA(password);
+        password = Utils.getSHA(password);
         preparedStatement.setNString(2, password);
         preparedStatement.executeUpdate();
     }
 
-    public static boolean checkPassword(Connection connection, String login, String password) {
+    public boolean checkPassword(String login, String password) throws SQLException, NoSuchAlgorithmException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT password FROM login_password WHERE login = ?");
+        preparedStatement.setNString(1, login);
+        password = Utils.getSHA(password);
+        preparedStatement.setNString(2, password);
+        ResultSet result = preparedStatement.executeQuery();
+        result.getNString(1);
         return false;
     }
 

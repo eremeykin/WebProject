@@ -8,11 +8,17 @@ package pete.eremeykin.servlets;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pete.eremeykin.common.DataBaseConnector;
+import pete.eremeykin.common.Utils;
 
 /**
  *
@@ -20,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/loginProcessor"})
 public class loginProcessor extends HttpServlet {
+
+    private static final DataBaseConnector baseConnector = new DataBaseConnector();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,11 +49,18 @@ public class loginProcessor extends HttpServlet {
     }
 
     protected void processSubmit(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("not-found.jsp");
+        try {
+            if (baseConnector.checkPassword(request.getParameter("Login"), request.getParameter("Password"))) {
+                response.sendRedirect("error.jsp");
+                response.addHeader("ErrorMsg", "Произошла какая-то ошибка");
+            }
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            Utils.send404(response, request);
+        }
     }
 
     protected void processRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("not-found.jsp");
+        Utils.send404(response, request);
     }
 
     @Override
