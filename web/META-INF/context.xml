@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/AnsysProject">
+  <Resource 
+      driverClassName="oracle.jdbc.driver.OracleDriver" 
+      name="jdbc/TestDB" password="1580" 
+      type="javax.sql.DataSource" 
+      url="jdbc:oracle:thin:@127.0.0.1:1521:XE" 
+      username="users"/>
+</Context>
