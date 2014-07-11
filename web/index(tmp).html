@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="res/css/reset.css" type="text/css" media="all">
+        <link rel="stylesheet" href="res/css/grid.css" type="text/css" media="all">
+        <link rel="stylesheet" href="res/css/style.css" type="text/css" media="all">
+        <link rel="stylesheet" href="res/css/jquery-ui-1.8.5.custom.css" type="text/css" media="all">
+        <script type="text/javascript" src="res/js/jquery-1.4.2.min.js" ></script>
+        <script type="text/javascript" src="res/js/jquery.cycle.all.js"></script>
+        <script type="text/javascript" src="res/js/jquery-ui-1.8.5.custom.min.js"></script>
+        <!--[if lt IE 9]>
+                <script type="text/javascript" src="js/html5.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <div class="container">
+                    <div class="wrapper">
+                        <h1><a href="index.html"><strong>Industrial</strong>Services</a></h1>
+                        <ul>
+                            <li><a href="index.html" class="current">about</a></li>
+                            <li><a href="index-1.html">products and services</a></li>
+                            <li><a href="index-2.html">industries</a></li>
+                            <li><a href="index-3.html">contacts</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <section class="adv-content">
+                <div class="container">
+                    <ul class="breadcrumbs">
+                        <li>Home</li>
+                    </ul>
+                    <form action="" id="search-form">
+                        <fieldset>
+                            <input type="text" value=""><input type="submit" value="">
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+        </header>
+        <section id="content">
+            <div class="top">
+                <div class="container">
+                    <div class="clearfix">
+                        
+                        <!--<textarea id="comments" class="form-poshytip" title="Enter your comments" cols="20" rows="5" name="comments"></textarea>-->
+                        <section id="gallery">
+                            <div class="pics">
+                                <img src="images/slide1.jpg" alt="" width="495" height="329">
+                                <img src="images/slide3.jpg" alt="" width="495" height="329">
+                                <img src="images/slide2.jpg" alt="" width="495" height="329">
+                                <img src="images/slide4.jpg" alt="" width="495" height="329">
+                                <img src="images/slide5.jpg" alt="" width="495" height="329">
+                            </div>
+                            <a href="#" id="prev"></a>
+                            <a href="#" id="next"></a>
+                        </section>
+                        <section id="intro">
+                            <div class="inner">
+                                <h2>Engineering<br /> And Construction<span>applications</span></h2>
+                                <p>Fusce euismod consequat ante. Lorem ipsum dolor sit<br /> amet, consectetuer adipiscing elit. Pellentesque sed dolor. Aliquam congue fermentum nisl. Mauris accumsan nulla vel diam. Sed in ls ut enim adipiscing aliquet. Nulla venenatis. In pede mi, aliquet sit at euismod in, auctor ut, ligula. </p>
+                                <a href="#" class="extra-button">Read More</a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="grid3 first">
+                            <ul class="categories">
+                                <li><a href="#">Aerospace</a></li>
+                                <li><a href="#">Automotive</a></li>
+                                <li><a href="#">Chemicals</a></li>
+                                <li><a href="#">Communications</a></li>
+                                <li><a href="#">Consumer Products</a></li>
+                                <li><a href="#">Education and Research</a></li>
+                                <li><a href="#">Engineering and Construction</a></li>
+                                <li><a href="#">High Technology</a></li>
+                                <li><a href="#">Industrial Manufacturing</a></li>
+                            </ul>
+                        </div>
+                        <div class="grid9">
+                            <textarea style="max-width: 99%;   width: 99%; height: 300px;min-width: 40%;  min-height: 100px; color: #000; font-size: 20   "> содержимое </textarea>
+                            <h2>Grow service revenue with world-class<br /> lifecycle service and support.</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container">
+                <div class="wrapper">
+                    <div class="copy">Industrial Services (c) 2010	|	<a href="">Privacy policy</a></div>
+                    <address class="phone">
+                        We're glad to help you. Please email or call us. <strong>1-123-456-7890</strong>
+                    </address>
+                </div>
+            </div>
+        </footer>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.pics').cycle({
+                    fx: 'toss',
+                    next: '#next',
+                    prev: '#prev'
+                });
+
+                // Datepicker
+                $('#datepicker').datepicker({
+                    inline: true
+                });
+
+            });
+        </script>
+    </body>
+</html>
