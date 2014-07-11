@@ -55,33 +55,38 @@
                     <div class="clearfix" align="center">
                         <section id="intro">
                             <form action="loginProcessor" method="POST" id="login-form">
-                                <table height="300">
+                                <table height="300" border="2">
                                     <thead>
                                     <th colspan="3"><h2>Login/Register</h2><br>Please enter your login and password.</th>
                                     </thead>
                                     <tbody>
                                         <tr height="30">
-                                            <td>Login:</td>
                                             <td>
-                                                <input type="text" name="Login" value="" size="60" />
+                                                Login:
+                                            </td>
+                                            <td>
+                                                <input type="email"  id="email" name="Login" value="" size="60" />
                                             </td>
                                         </tr>
                                         <tr height="30">
-                                            <td>Password:</td>
                                             <td>
-                                                <input type="text" name="Password" value="" size="60" />
+                                                Password:
+                                            </td>
+                                            <td>
+                                                <input type="password" name="Password" value="" size="60" />
                                             </td>
                                         </tr>
                                         <tr height="30">
-                                            <td colspan="2"> 
-                                    <center>
-                                        <input type="submit" value="Login" name="Submit" />
-                                        <input type="submit" value="Register" name="Register" />
-                                    </center>                           
-                                    </td>
-                                    </tr>
-                                    <tr height="110">
-                                    </tr>
+                                            <td colspan="2" align="center"> 
+                                                <input type="submit" value="Login" name="Submit" />
+                                                <input type="submit" value="Register" name="Register" />
+                                            </td>
+                                        </tr>
+                                        <tr height="110">
+                                            <td align="center" colspan="3" style="vertical-align: top; color: #f44">
+                                                <%=(String) request.getAttribute("ErrorMsg")!=null?(String) request.getAttribute("ErrorMsg"):""%>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </form>

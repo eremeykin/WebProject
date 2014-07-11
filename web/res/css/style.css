@@ -138,7 +138,9 @@ footer .container {color:#fff;font-size:16px;line-height:1.25em;padding:8px 0 8p
 /*----- forms -----*/
 #login-form {position:relative}
 	#login-form fieldset {border:none}
-		#login-form input[type=text] {	color: #484848;	font-size: 14px; border: transparent;width: 260px; height: 26px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
+                #login-form input[type=password] {	color: #484848;	font-size: 14px; border: transparent;width: 220px; height: 25px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
+                #login-form input[type=email] {	color: #484848;	font-size: 14px; border: transparent;width: 220px; height: 25px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
+		#login-form input[type=text] {	color: #484848;	font-size: 14px; border: transparent;width: 220px; height: 25px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
                 #login-form input[type=submit] {width:100px;height:20px ;position:relative;border:none;background: url(../images/login-button.png) no-repeat;cursor:pointer}
 #search-form {float:right;position:relative}
 	#search-form fieldset {border:none}

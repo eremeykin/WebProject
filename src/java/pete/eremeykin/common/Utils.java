@@ -33,15 +33,19 @@ public class Utils {
         return sb.toString();
     }
 
-    public static void sendError(String errHeader, String errMessage, HttpServletResponse response, HttpServletRequest request) {
+    public static void sendMessage(String errHeader, String errMessage, String URL, HttpServletResponse response, HttpServletRequest request) {
         response.setContentType("text/html");
         request.setAttribute("ErrorMsg", errMessage != null ? errMessage : "");
-        request.setAttribute("ErrorHeader", errHeader);
+        request.setAttribute("ErrorHeader", errHeader != null ? errHeader : "");
         try {
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            request.getRequestDispatcher(URL).forward(request, response);
         } catch (ServletException | IOException ex) {
             Logger.getLogger(loginProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void sendError(String errHeader, String errMessage, HttpServletResponse response, HttpServletRequest request) {
+        sendMessage(errHeader, errMessage, "error.jsp", response, request);
     }
 
     public static void send404(HttpServletResponse response, HttpServletRequest request) {

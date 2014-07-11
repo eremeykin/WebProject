@@ -51,7 +51,7 @@ public class loginProcessor extends HttpServlet {
             if (baseConnector.checkPassword(request.getParameter("Login"), request.getParameter("Password"))) {
                 Utils.sendError("success", "", response, request);
             } else {
-                Utils.sendError("Wrong password", "", response, request);
+                Utils.sendMessage("", "Check login/password and try again", "index.jsp", response, request);
             }
         } catch (SQLException | NoSuchAlgorithmException ex) {
             Utils.send404(response, request);
@@ -64,8 +64,8 @@ public class loginProcessor extends HttpServlet {
                 baseConnector.insertInfo(request.getParameter("Login"), request.getParameter("Password"));
                 Utils.sendError("success", null, response, request);
             } catch (SQLException ex) {
-                if (ex.getMessage().equals("ORA-00001: unique constraint (USERS.SYS_C007094) violated\n" +"")) {
-                    Utils.sendError("data base connection error", "This user already exists", response, request);
+                if (ex.getMessage().contains("ORA-00001:")) {
+                    Utils.sendMessage("", "This user already exists", "index.jsp", response, request);
                 } else {
                     Utils.sendError("data base connection error", ex.getMessage(), response, request);
                 }
@@ -73,7 +73,7 @@ public class loginProcessor extends HttpServlet {
                 Utils.sendError("security error", null, response, request);
             }
         } else {
-            Utils.sendError("Check form", null, response, request);
+            Utils.sendMessage("", "Check form", "index.jsp", response, request);
         }
     }
 
