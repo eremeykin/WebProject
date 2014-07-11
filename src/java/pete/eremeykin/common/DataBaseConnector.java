@@ -47,7 +47,7 @@ public class DataBaseConnector {
             return null;
         }
     }
-
+// Удалить !!!
     public void executeSQLcmd(String sqlCmd) throws SQLException {
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         statement.executeQuery(sqlCmd);
