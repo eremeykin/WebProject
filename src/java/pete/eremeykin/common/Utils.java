@@ -35,7 +35,7 @@ public class Utils {
 
     public static void sendError(String errHeader, String errMessage, HttpServletResponse response, HttpServletRequest request) {
         response.setContentType("text/html");
-        request.setAttribute("ErrorMsg", errMessage);
+        request.setAttribute("ErrorMsg", errMessage != null ? errMessage : "");
         request.setAttribute("ErrorHeader", errHeader);
         try {
             request.getRequestDispatcher("/error.jsp").forward(request, response);
@@ -47,5 +47,9 @@ public class Utils {
     public static void send404(HttpServletResponse response, HttpServletRequest request) {
         sendError("page not found", "Sorry, but the page you are looking for has not been found."
                 + "Try checking the URL for errors, then hit the refresh button on your browser.", response, request);
+    }
+
+    public static boolean checkLoginFormData(String login, String password) {
+        return login != null && password != null && !login.equals("") && !password.equals("");
     }
 }

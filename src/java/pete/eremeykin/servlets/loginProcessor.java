@@ -5,9 +5,7 @@
  */
 package pete.eremeykin.servlets;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -51,8 +49,9 @@ public class loginProcessor extends HttpServlet {
     protected void processSubmit(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             if (baseConnector.checkPassword(request.getParameter("Login"), request.getParameter("Password"))) {
-                response.sendRedirect("error.jsp");
-                response.addHeader("ErrorMsg", "Произошла какая-то ошибка");
+                Utils.sendError("success", "", response, request);
+            } else {
+                Utils.sendError("Wrong password", "", response, request);
             }
         } catch (SQLException | NoSuchAlgorithmException ex) {
             Utils.send404(response, request);
@@ -60,7 +59,22 @@ public class loginProcessor extends HttpServlet {
     }
 
     protected void processRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Utils.send404(response, request);
+        if (Utils.checkLoginFormData(request.getParameter("Login"), request.getParameter("Password"))) {
+            try {
+                baseConnector.insertInfo(request.getParameter("Login"), request.getParameter("Password"));
+                Utils.sendError("success", null, response, request);
+            } catch (SQLException ex) {
+                if (ex.getMessage().equals("ORA-00001: unique constraint (USERS.SYS_C007094) violated\n" +"")) {
+                    Utils.sendError("data base connection error", "This user already exists", response, request);
+                } else {
+                    Utils.sendError("data base connection error", ex.getMessage(), response, request);
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                Utils.sendError("security error", null, response, request);
+            }
+        } else {
+            Utils.sendError("Check form", null, response, request);
+        }
     }
 
     @Override

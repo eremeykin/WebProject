@@ -66,7 +66,6 @@
                     </div>
                 </div>
             </div>
-
         </section>
         <footer>
             <div class="container">

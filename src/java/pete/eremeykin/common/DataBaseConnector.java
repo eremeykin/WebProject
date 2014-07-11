@@ -19,6 +19,7 @@ import java.util.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 public class DataBaseConnector {
@@ -61,13 +62,19 @@ public class DataBaseConnector {
     }
 
     public boolean checkPassword(String login, String password) throws SQLException, NoSuchAlgorithmException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT password FROM login_password WHERE login = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("select password from USERS_INFO where login=?");
         preparedStatement.setNString(1, login);
         password = Utils.getSHA(password);
-        preparedStatement.setNString(2, password);
         ResultSet result = preparedStatement.executeQuery();
-        result.getNString(1);
-        return false;
+        if (result.next() && password.equals(result.getString(1))) {
+            return true;
+//                //get session
+//                HttpSession hs = request.getSession(true);
+//                hs.setAttribute("Login", login);
+//                response.sendRedirect("MainUserPage.jsp");
+        } else {
+            return false;
+        }
     }
-
+    
 }
