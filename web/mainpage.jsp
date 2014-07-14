@@ -13,6 +13,13 @@
         <!--[if lt IE 9]>
                 <script type="text/javascript" src="js/html5.js"></script>
         <![endif]-->
+        <%
+            HttpSession httpSession = request.getSession(true);
+            String name = (String) httpSession.getAttribute("Login");
+            if (name == null) {
+                response.sendRedirect("index.jsp");
+            }
+        %>
     </head>
     <body>
         <header>

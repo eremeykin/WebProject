@@ -54,10 +54,19 @@
             </nav>
         </header>
         <section id="content">
-            <div class="top">
+            <div class="top" style="display: none">
                 <div class="container">
-                    <div class="clearfix" align="center">
+                    <div class="clearfix">
                         <section id="intro">
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="middle">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="grid3 first">
                             <form action="loginProcessor" method="POST" id="login-form">
                                 <table height="300" border="2">
                                     <thead>
@@ -94,11 +103,12 @@
                                     </tbody>
                                 </table>
                             </form>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
         <footer>
             <div class="container">
                 <div class="wrapper">
