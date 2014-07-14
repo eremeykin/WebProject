@@ -82,6 +82,7 @@ h6 {}
 header h1 {font-family:'ColaborateThinRegular';font-size:26px;line-height:1.2em;color:#fff;font-weight:normal;float:left}
 		header h1 a {color:#fff;text-decoration:none}
 			header h1 strong {font-family:'ColaborateBoldRegular';font-weight:normal}
+header h3 {float: right; vertical-align: bottom;}
 header nav {padding:7px 0 10px 0}
 	header nav ul {float:right;padding:2px 0 0 0}
 		header nav ul li {float:left;padding-left:4px}
@@ -128,6 +129,7 @@ header .adv-content {overflow:hidden;background:#f9f9f9;padding:10px 0 8px 0}
 			.list2 li a:hover {color:#fff;-moz-transition:all 0.3s ease-out; /* FF3.7+ */ -o-transition:all 0.3s ease-out; /* Opera 10.5 */ -webkit-transition:all 0.3s ease-out; /* Saf3.2+, Chrome */ }
 	.list3 {padding-bottom:24px}
 	.list3 li {background:url(../images/arrow2.gif) no-repeat 0 7px;padding:0 0 6px 17px}
+        #text-area {font-family: Courier New, monospace;resize: vertical; max-width: 99%;   width: 99%; height: 300px;min-width: 40%;  min-height: 100px; color: #000; font-size: medium;  }
 /*===== footer =====*/
 footer .container {color:#fff;font-size:16px;line-height:1.25em;padding:8px 0 8px 0;font-family:'ColaborateThinRegular'}
 	footer .copy {float:left}

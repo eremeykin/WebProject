@@ -30,15 +30,19 @@
                 <script type="text/javascript" src="js/html5.js"></script>
         <![endif]-->
     </head>
-
     <%
-        HttpSession httpSession = request.getSession(true);
-        String name = (String) httpSession.getAttribute("Login");
-        if (name != null) {
-            response.sendRedirect("MainUserPage.jsp");
+        if (request.getParameter("param") != null && request.getParameter("param").equals("logout")) {
+            request.getSession().removeAttribute("isActive");
+            request.getSession().invalidate();
+            response.sendRedirect("index.jsp");
+        } else {
+            HttpSession httpSession = request.getSession(true);
+            String name = (String) httpSession.getAttribute("Login");
+            if (name != null) {
+                response.sendRedirect("mainpage.jsp");
+            }
         }
     %>
-
     <body>
         <header>
             <nav>
@@ -84,7 +88,7 @@
                                         </tr>
                                         <tr height="110">
                                             <td align="center" colspan="3" style="vertical-align: top; color: #f44">
-                                                <%=(String) request.getAttribute("ErrorMsg")!=null?(String) request.getAttribute("ErrorMsg"):""%>
+                                                <%=(String) request.getAttribute("ErrorMsg") != null ? (String) request.getAttribute("ErrorMsg") : ""%>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -94,7 +98,6 @@
                     </div>
                 </div>
             </div>
-
         </section>
         <footer>
             <div class="container">

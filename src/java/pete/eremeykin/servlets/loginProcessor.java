@@ -8,13 +8,12 @@ package pete.eremeykin.servlets;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import pete.eremeykin.common.DataBaseConnector;
 import pete.eremeykin.common.Utils;
 
@@ -49,7 +48,9 @@ public class loginProcessor extends HttpServlet {
     protected void processSubmit(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             if (baseConnector.checkPassword(request.getParameter("Login"), request.getParameter("Password"))) {
-                Utils.sendError("success", "", response, request);
+                HttpSession httpSession = request.getSession(true);
+                httpSession.setAttribute("Login", request.getParameter("Login"));
+                response.sendRedirect("mainpage.jsp");
             } else {
                 Utils.sendMessage("", "Check login/password and try again", "index.jsp", response, request);
             }
@@ -62,7 +63,9 @@ public class loginProcessor extends HttpServlet {
         if (Utils.checkLoginFormData(request.getParameter("Login"), request.getParameter("Password"))) {
             try {
                 baseConnector.insertInfo(request.getParameter("Login"), request.getParameter("Password"));
-                Utils.sendError("success", null, response, request);
+                HttpSession hs = request.getSession(true);
+                hs.setAttribute("Login", request.getParameter("Login"));
+                response.sendRedirect("mainpage.jsp");
             } catch (SQLException ex) {
                 if (ex.getMessage().contains("ORA-00001:")) {
                     Utils.sendMessage("", "This user already exists", "index.jsp", response, request);

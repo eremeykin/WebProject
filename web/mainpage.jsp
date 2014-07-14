@@ -14,7 +14,6 @@
                 <script type="text/javascript" src="js/html5.js"></script>
         <![endif]-->
     </head>
-
     <body>
         <header>
             <nav>
@@ -22,7 +21,10 @@
                     <div class="wrapper">
                         <h1><a href="index.jsp"><strong>Ansys</strong>Online</a></h1>
                         <!--<div style="float: right;">We are glad to see you!</div>-->
-                        <h3>We are glad to see you!</h3>
+                        <h3 style="font-size: small">We are glad to see you, <%=request.getSession(true).getAttribute("Login")%>!
+                            <a href="index.jsp?param=logout">                                
+                                <img src="res/images/logout.png" width="15" height="15" alt="logout"></h3>
+                            </a>
                     </div>
                 </div>
             </nav>
@@ -37,7 +39,7 @@
                             </ul>
                         </div>
                         <div class="grid9">
-                            <textarea id="text-area"> содержимое </textarea>
+                            <textarea id="text-area"> content </textarea>
                         </div>
                     </div>
                 </div>

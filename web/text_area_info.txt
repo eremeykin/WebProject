@@ -1,0 +1,46 @@
+<textarea id="comments" class="form-poshytip" title="Enter your comments" cols="20" rows="5" name="comments"></textarea>
+
+*::-moz-selection {
+    background: none repeat scroll 0% 0% #EA4C88;
+    color: #FFF;
+}
+элемент {
+}
+#contactForm textarea, #commentform textarea {
+    width: 90%;
+    height: 230px;
+}
+#contactForm input, #contactForm textarea, #commentform input, #commentform textarea {
+    padding: 10px 15px;
+    background: none repeat scroll 0% 0% #EAEAEA;
+    color: #484848;
+    border: 1px solid #CCC;
+    font-size: 13px;
+    font-family: Helvetica,Arial;
+    line-height: 1.5em;
+    overflow: auto;
+}
+#respond-title, #comments, .add-comment-link {
+    font-size: 15px;
+    color: #2C2D31;
+    font-weight: bold;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    font: inherit;
+}
+#commentform, #contactForm {
+    color: #484848;
+}
+#main, footer, aside {
+    line-height: 1.5em;
+}
+body {
+    color: #888;
+}
+body {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 13px;
+}
+body {
+    line-height: 1;
+}
