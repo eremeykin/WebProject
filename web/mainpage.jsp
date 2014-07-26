@@ -43,10 +43,16 @@
                         <div class="grid3 first">
                             <ul class="categories">
                                 <li><a href="#">New query</a></li>
+                                <li><a href="">History</a></li>
                             </ul>
                         </div>
                         <div class="grid9">
-                            <textarea id="text-area"> content </textarea>
+                            <form action="runQuery" method="POST" id="login-form">
+                                <textarea id="text-area" name="Query"> content </textarea>
+                                <input type="submit" name="run" value="Run" size="60" style="float: right; padding-right: 20px"/>
+                            </form>
+                            </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
