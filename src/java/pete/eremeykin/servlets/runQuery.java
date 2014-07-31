@@ -3,16 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pete.eremeykin.servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+import pete.eremeykin.common.AnsysQueryPerformer;
+import pete.eremeykin.common.Utils;
 
 /**
  *
@@ -34,9 +42,14 @@ public class runQuery extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           if (request.getParameter("Query")!=null){
-           out.print(request.getParameter("Query"));
-           }
+            if (request.getParameter("Query") != null) {
+                try {                
+                    AnsysQueryPerformer aqp = new AnsysQueryPerformer();
+                    out.print("Performed" + aqp.runQuery(null));
+                } catch (ParserConfigurationException | SAXException ex) {
+                    Utils.sendError("configuration error", "An error occurred while reading the configuration file", response, request);
+                }
+            }
         }
     }
 

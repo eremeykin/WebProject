@@ -5,6 +5,8 @@
  */
 package pete.eremeykin.common;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +15,9 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 import pete.eremeykin.servlets.loginProcessor;
 
 /**
@@ -55,5 +60,22 @@ public class Utils {
 
     public static boolean checkLoginFormData(String login, String password) {
         return login != null && password != null && !login.equals("") && !password.equals("");
+    }
+
+    private static Document getDoc() throws SAXException, IOException, ParserConfigurationException {
+        Document doc;
+        DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+        f.setValidating(false);
+        DocumentBuilder builder = f.newDocumentBuilder();
+        File config = new File("C:\\Users\\Пётр\\Documents\\NetBeansProjects\\AnsysProject\\src\\java\\config\\config.xml");
+        doc = builder.parse(config);
+        return doc;
+    }
+
+    public static String getSetting(String tagName, String attrName) throws SAXException, IOException, ParserConfigurationException {
+        Document doc = getDoc();
+        NodeList nl = doc.getElementsByTagName(tagName);
+        Element el = (Element) nl.item(0);
+        return el.getAttribute(attrName);
     }
 }
