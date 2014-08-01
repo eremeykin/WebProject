@@ -48,7 +48,7 @@
                         </div>
                         <div class="grid9">
                             <form action="runQuery" method="POST" id="login-form">
-                                <textarea id="text-area" name="Query"> content </textarea>
+                                <textarea id="text-area" name="Query">Here should be your APDL query... </textarea>
                                 <input type="submit" name="run" value="Run" size="60" style="float: right; padding-right: 20px"/>
                             </form>
                             </tbody>

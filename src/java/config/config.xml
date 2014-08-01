@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 
 
-<root>
+<config>
     <Working_dir path="C:\\AnsysWorkingDir"/>
     <Ansys_dir path="C:\\Program Files\\ANSYS Inc\\v150\\ansys\\bin\\winx64\\ANSYS150.exe"/>
-</root>
+</config>

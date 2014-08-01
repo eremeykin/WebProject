@@ -45,7 +45,8 @@ public class runQuery extends HttpServlet {
             if (request.getParameter("Query") != null) {
                 try {                
                     AnsysQueryPerformer aqp = new AnsysQueryPerformer();
-                    out.print("Performed" + aqp.runQuery(null));
+//                    out.print("Performed" + aqp.runQuery(null));
+                    aqp.queryToFile(request.getParameter("Query"), request.getSession().getAttribute("Login").toString());
                 } catch (ParserConfigurationException | SAXException ex) {
                     Utils.sendError("configuration error", "An error occurred while reading the configuration file", response, request);
                 }
