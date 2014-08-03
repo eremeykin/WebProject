@@ -97,7 +97,7 @@
                                         </tr>
                                         <tr height="110">
                                             <td align="center" colspan="3" style="vertical-align: top; color: #f44">
-                                                <%=(String) request.getAttribute("ErrorMsg") != null ? (String) request.getAttribute("ErrorMsg") : ""%>
+                                                <%=(String) request.getAttribute("msg") != null ? (String) request.getAttribute("msg") : ""%>
                                             </td>
                                         </tr>
                                     </tbody>

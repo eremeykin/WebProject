@@ -1,3 +1,4 @@
+<%@page import="pete.eremeykin.common.Utils"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,6 +11,9 @@
         <script type="text/javascript" src="res/js/jquery-1.4.2.min.js" ></script>
         <script type="text/javascript" src="res/js/jquery.cycle.all.js"></script>
         <script type="text/javascript" src="res/js/jquery-ui-1.8.5.custom.min.js"></script>
+        <script type="text/javascript" src="res/js/jquery-splitter.js"></script>
+        <script type="text/javascript" src="res/js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="res/js/splitter.js"></script>
         <!--[if lt IE 9]>
                 <script type="text/javascript" src="js/html5.js"></script>
         <![endif]-->
@@ -20,6 +24,76 @@
                 response.sendRedirect("index.jsp");
             }
         %>
+
+        <link rel="stylesheet" type="text/css" href="res/css/splitter.css" />
+        <style type="text/css" media="all">
+
+            body {
+                padding: 0px;
+            }
+
+            /*
+             * Splitter container. Set this to the desired width and height
+             * of the combined left and right panes. In this example, the
+             * height is fixed and the width is the full width of the body,
+             * less the margin on the splitter itself.
+             */
+            #MySplitter {
+                height: 400px;
+                margin: 1em 3em;
+                /*border: 4px solid #bdb;*/
+                /* No padding allowed */
+            }
+            /*
+             * Left-side element of the splitter. Use pixel units for the
+             * min-width and max-width; the splitter plugin parses them to
+             * determine the splitter movement limits. Set the width to
+             * the desired initial width of the element; the plugin changes
+             * the width of this element dynamically.
+             */
+            #LeftPane {
+                /*background: #efe;*/
+                overflow: auto;
+                /*padding: 3px;*/
+                /* No margin or border allowed */
+            }
+            /*
+             * Right-side element of the splitter.
+             */
+            #RightPane {
+                /*background: #f8fff8;*/
+                overflow: auto;
+                /*padding: 3px;*/
+                /* No margin or border allowed */
+            }
+            /* 
+             * Splitter bar style; the .active class is added when the
+             * mouse is over the splitter or the splitter is focused
+             * via the keyboard taborder or an accessKey. 
+             */
+            #MySplitter .vsplitbar {
+                width: 6px;
+                background: #aca url(img/vgrabber.gif) no-repeat center;
+            }
+            #MySplitter .vsplitbar.active {
+                background: #da8 url(img/vgrabber.gif) no-repeat center;
+                opacity: 0.7;
+            }
+        </style>
+        <script type="text/javascript">
+
+            $().ready(function() {
+                $("#MySplitter").splitter({
+                    type: "v",
+                    outline: true,
+                    minLeft: 100, sizeLeft: 150, minRight: 100,
+                    resizeToWidth: true,
+                    cookie: "vsplitter",
+                    accessKey: 'I'
+                });
+            });
+
+        </script>
     </head>
     <body>
         <header>
@@ -47,12 +121,46 @@
                             </ul>
                         </div>
                         <div class="grid9">
-                            <form action="runQuery" method="POST" id="login-form">
-                                <textarea id="text-area" name="Query">Here should be your APDL query... </textarea>
-                                <input type="submit" name="run" value="Run" size="60" style="float: right; padding-right: 20px"/>
-                            </form>
-                            </tbody>
-                            </table>
+                            <div id="MySplitter">
+                                <div id="LeftPane">
+                                    
+                                    <%=Utils.printDirTree("C:\\masm32")%>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("ul").hide();
+                                            $("h4 span").click(function() {
+                                                $(this).parent().next().slideToggle();
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div id="RightPane">
+                                    <form action="runQuery" method="POST" id="login-form">
+                                        <!--<input type="text" name="QueryName" value="Query name">-->
+                                        <textarea id="text-area" name="Query">Here should be your APDL query... </textarea>
+                                        <!--<input type="submit" name="run" value="Run" size="60" style="float: right; padding-right: 20px"/>-->
+                                        <input type="submit" name="run" value="Run" size="60"/>
+                                    </form>
+                                </div>
+                            </div>
+<!--                            <table border="0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            some content
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>-->
                         </div>
                     </div>
                 </div>

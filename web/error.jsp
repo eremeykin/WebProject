@@ -50,8 +50,8 @@
                                     <tr>
                                         <th>
                                 <h2 style="color:#ff4444">Error</h2>
-                                <h2><strong>Sorry, </strong><%=(String) request.getAttribute("ErrorHeader")%><br></h2>
-                                    <%=(String) request.getAttribute("ErrorMsg")%>
+                                <h2><strong>Sorry, </strong><%=(String) request.getAttribute("header")%><br></h2>
+                                    <%=(String) request.getAttribute("msg")%>
                                 </th>
                                 </tr>
                                 </thead>

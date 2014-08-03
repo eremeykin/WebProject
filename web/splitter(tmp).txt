@@ -1,0 +1,26 @@
+<div id="MySplitter">
+                                <div id="LeftPane">
+                                    <%=(String) request.getAttribute("header")%><br>
+                                    <%=(String) request.getAttribute("msg")%>
+                                    <style>
+                                        h3 { cursor:pointer;}
+                                    </style>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("ul").hide();
+                                            $("h3 span").click(function() {
+                                                $(this).parent().next().slideToggle();
+                                            });
+                                        });
+                                    </script>
+                                </div>
+
+                                <div id="RightPane">
+                                    <form action="runQuery" method="POST" id="login-form">
+                                        <input type="text" name="QueryName" value="Query name">
+                                        <textarea id="text-area" name="Query">Here should be your APDL query... </textarea>
+                                        <!--<input type="submit" name="run" value="Run" size="60" style="float: right; padding-right: 20px"/>-->
+                                        <input type="submit" name="run" value="Run" size="60"/>
+                                    </form>
+                                </div>
+                            </div>
