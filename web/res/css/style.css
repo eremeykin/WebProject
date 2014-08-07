@@ -44,8 +44,8 @@ a:hover {text-decoration:none}
 h1 {}
 h2 {font-size:48px;color:#06cbe2;line-height:40px;font-family:'CalibriBold';font-weight:normal;margin-bottom:25px}
 h2.narrow {letter-spacing:-1px}
-h3 {font-size:18px;line-height:1.2em;font-family:'ColaborateRegular';font-weight:normal;margin-bottom:1em}
-h4 {}
+h3 {font-size:18px;line-height:1.2em;font-family:'ColaborateRegular';font-weight:normal;margin-bottom:1em;margin-top: 8px;}
+h4 {cursor: pointer;}
 h5 {}
 h6 {}
 .txt1 {}
@@ -129,7 +129,7 @@ header .breadcrumbs {float:left;padding:3px 0 0 10px}		header .breadcrumbs li {d
 .list2 li a:hover {color:#fff;-moz-transition:all 0.3s ease-out; /* FF3.7+ */ -o-transition:all 0.3s ease-out; /* Opera 10.5 */ -webkit-transition:all 0.3s ease-out; /* Saf3.2+, Chrome */ }
 .list3 {padding-bottom:24px}
 .list3 li {background:url(../images/arrow2.gif) no-repeat 0 7px;padding:0 0 6px 17px}
-#text-area {font-family: Courier New, monospace;resize: vertical; max-width: 99%;   width: 99%; height: 300px;min-width: 40%;  min-height: 100px; color: #000; font-size: medium;  }
+#text-area {font-family: Courier New, monospace;  color: #000; font-size: medium;  }
 /*===== footer =====*/
 footer .container {color:#fff;font-size:16px;line-height:1.25em;padding:8px 0 8px 0;font-family:'ColaborateThinRegular'}
 footer .copy {float:left}
@@ -138,12 +138,14 @@ footer .copy a:hover {-moz-transition:all 0.3s ease-out; /* FF3.7+ */ -o-transit
 footer .phone {float:right;font-style:normal}
 footer .phone strong {font-family:'ColaborateBoldRegular';font-weight:normal;color:#e83709}
 /*----- forms -----*/
+
 #login-form {position:relative}
 #login-form fieldset {border:none}
-#login-form input[type=password] {	color: #484848;	font-size: 14px; border: transparent;width: 220px; height: 25px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
-#login-form input[type=email] {	color: #484848;	font-size: 14px; border: transparent;width: 220px; height: 25px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
-#login-form input[type=text] {	color: #484848;	font-size: 14px; border: transparent;width: 220px; height: 25px;padding: 0px 50px 0px 10px; background: url(../images/login.png) no-repeat;} 
+#login-form input[type=password] {	color: #484848;	font-size: 14px; border: transparent;width: 260px; height: 25px;padding: 0px 10px 0px 10px; background: url(../images/login.png) no-repeat;} 
+#login-form input[type=email] {	color: #484848;	font-size: 14px; border: transparent;width: 260px; height: 25px;padding: 0px 10px 0px 10px; background: url(../images/login.png) no-repeat;} 
+#login-form input[type=text] {	color: #484848;	font-size: 14px; border: transparent;width: 260px; height: 25px;padding: 0px 10px 0px 10px; background: url(../images/login.png) no-repeat;} 
 #login-form input[type=submit] {width:100px;height:20px ;position:relative;border:none;background: url(../images/login-button.png) no-repeat;cursor:pointer}
+
 #search-form {float:right;position:relative}
 #search-form fieldset {border:none}
 #search-form input[type=text] {background:#fff;width:195px;border:none;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;padding:4px 25px 5px 8px;box-shadow:rgba(0, 0, 0, .2) 2px 2px 2px inset;-moz-box-shadow:rgba(0, 0, 0, .2) 2px 2px 2px inset;-webkit-box-shadow:rgba(0, 0, 0, .2) 2px 2px 2px inset;background:url(../images/search-bg.gif) no-repeat 100% 7px #fff}

@@ -5,6 +5,7 @@
  */
 package pete.eremeykin.common;
 
+import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,14 +39,14 @@ public class Utils {
         return sb.toString();
     }
 
-    public static void sendMessage(String errHeader, String errMessage, String URL, HttpServletResponse response, HttpServletRequest request) {
+    public static void sendMessage(String header, String message, String URL, HttpServletResponse response, HttpServletRequest request) {
         response.setContentType("text/html");
-        request.setAttribute("ErrorMsg", errMessage != null ? errMessage : "");
-        request.setAttribute("ErrorHeader", errHeader != null ? errHeader : "");
+        request.setAttribute("msg", message != null ? message : "");
+        request.setAttribute("header", header != null ? header : "");
         try {
             request.getRequestDispatcher(URL).forward(request, response);
         } catch (ServletException | IOException ex) {
-            Logger.getLogger(loginProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            sendError("error while sending message", ex.getMessage(), response, request);
         }
     }
 
@@ -62,7 +63,15 @@ public class Utils {
         return login != null && password != null && !login.equals("") && !password.equals("");
     }
 
-    private static Document getDoc() throws SAXException, IOException, ParserConfigurationException {
+    public static String specCharsConverter(String str) {
+        str=str.replace("&", "&amp");
+        str=str.replace(">", "&gt");
+        str=str.replace("<", "&lt");
+        str=str.replace("\"", "&quot");
+        return str;
+    }
+
+    private static Document getDoc() throws FileNotFoundException, SAXException, IOException, ParserConfigurationException {
         Document doc;
         DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
         f.setValidating(false);
@@ -72,10 +81,57 @@ public class Utils {
         return doc;
     }
 
-    public static String getSetting(String tagName, String attrName) throws SAXException, IOException, ParserConfigurationException {
+    public static String getSetting(String tagName, String attrName) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException {
         Document doc = getDoc();
         NodeList nl = doc.getElementsByTagName(tagName);
         Element el = (Element) nl.item(0);
         return el.getAttribute(attrName);
+    }
+
+    //source: http://www.codenet.ru/webmast/java/jspupl.php
+    public static void sendFile(String fileName, HttpServletResponse response, HttpServletRequest request) {
+        response.setHeader("Content-Type", "application/octet-stream;");
+        String shortname = fileName.substring(fileName.lastIndexOf("\\") + 1, fileName.length());
+        response.setHeader("Content-Disposition", "filename=\"" + shortname + "\"");
+        try {
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileName));
+            BufferedOutputStream binout = new BufferedOutputStream(response.getOutputStream());
+            int ch = in.read();
+            while (ch != -1) {
+                binout.write(ch);
+                ch = in.read();
+            }
+            binout.close();
+            in.close();
+        } catch (IOException ioe) {
+            sendError("error while sending file", ioe.getMessage(), response, request);
+        }
+    }
+
+    //temp
+    public static String printDirTree(String startDir) throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
+        File dir = new File(startDir);
+        dir.mkdirs();
+        String[] content = dir.list();
+        String res = "<div class=\"box\">\n"
+                + "<h4><span><nobr>" + "<img src=\"res/images/folder.png\" height=\"15\" width=\"15\">&nbsp" + dir.getName() + "</nobr></span></h4>\n"
+                + "<ul style=\"margin-left:15px\">";
+        for (String d : dir.list()) {
+            File currFile = new File(startDir + "\\" + d);
+            if (currFile.isDirectory()) {
+
+                res = res + printDirTree(currFile.getAbsolutePath());
+            }
+        }
+        for (String d : dir.list()) {
+            File currFile = new File(startDir + "\\" + d);
+            if (!currFile.isDirectory()) {
+                res = res + "<li>" + d + "</li>" + "\n";
+            }
+        }
+
+        res = res + "</ul>\n"
+                + "</div>";
+        return res;
     }
 }

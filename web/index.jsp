@@ -4,6 +4,7 @@
     Author     : Pete
 --%>
 
+<%@page errorPage="unknown_error.jsp" %>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.Reader"%>
 <%@page import="java.util.Locale"%>
@@ -11,7 +12,6 @@
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.*"%>
-<%@page import="pete.eremeykin.common.HTMLHelper"%>
 <%@page import="pete.eremeykin.common.DataBaseConnector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,7 +48,11 @@
             <nav>
                 <div class="container">
                     <div class="wrapper">
-                        <h1><a href="index.jsp"><strong>Ansys</strong>Online</a></h1>
+                        <h1>
+                            <a href="index.jsp">
+                                <img src="res/images/logo.png" width="8%" height="8%">
+                                <strong>Ansys</strong>Online</a>
+                        </h1>
                     </div>
                 </div>
             </nav>
@@ -78,7 +82,7 @@
                                                 Login:
                                             </td>
                                             <td>
-                                                <input type="email"  id="email" name="Login" value="" size="60" />
+                                                <input type="text"  id="email" name="Login" value="" size="60" />
                                             </td>
                                         </tr>
                                         <tr height="30">

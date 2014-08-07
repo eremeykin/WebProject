@@ -4,7 +4,6 @@
     Author     : Pete
 --%>
 
-<%@page errorPage="unknown_error.jsp" %>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.Reader"%>
 <%@page import="java.util.Locale"%>
@@ -35,11 +34,7 @@
             <nav>
                 <div class="container">
                     <div class="wrapper">
-                        <h1>
-                            <a href="index.jsp">
-                                <img src="res/images/logo.png" width="8%" height="8%">
-                                <strong>Ansys</strong>Online</a>
-                        </h1>
+                        <h1><a href="index.jsp"><strong>Ansys</strong>Online</a></h1>
                     </div>
                 </div>
             </nav>
@@ -53,9 +48,8 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                <h2 style="color:#ff4444">Error</h2>
-                                <h2><strong>Sorry, </strong><%=(String) request.getAttribute("header")%><br></h2>
-                                    <%=(String) request.getAttribute("msg")%>
+                                <h2><strong>Sorry,</strong>page not found<br></h2>
+                                Sorry, but the page you are looking for has not been found. Try checking the URL for errors, then hit the refresh button on your browser. 
                                 </th>
                                 </tr>
                                 </thead>
@@ -70,8 +64,9 @@
                     </div>
                 </div>
             </div>
+
         </section>
-        <footer>
+                <footer>
             <div class="container">
                 <div class="wrapper">
                     <div class="copy">Eremeykin Pete (c) 2014	|	<a href="">Privacy policy</a></div>

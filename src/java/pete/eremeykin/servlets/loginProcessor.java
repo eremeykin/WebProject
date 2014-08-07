@@ -5,6 +5,7 @@
  */
 package pete.eremeykin.servlets;
 
+import com.sun.media.sound.InvalidDataException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -49,7 +50,7 @@ public class loginProcessor extends HttpServlet {
         try {
             if (baseConnector.checkPassword(request.getParameter("Login"), request.getParameter("Password"))) {
                 HttpSession httpSession = request.getSession(true);
-                httpSession.setAttribute("Login", request.getParameter("Login"));
+                httpSession.setAttribute("Login", Utils.specCharsConverter(request.getParameter("Login")));
                 response.sendRedirect("mainpage.jsp");
             } else {
                 Utils.sendMessage("", "Check login/password and try again", "index.jsp", response, request);
@@ -62,9 +63,12 @@ public class loginProcessor extends HttpServlet {
     protected void processRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (Utils.checkLoginFormData(request.getParameter("Login"), request.getParameter("Password"))) {
             try {
+                if (request.getParameter("Login").contains("/") || request.getParameter("Login").contains("\\")) {
+                    throw new InvalidDataException("");
+                }
                 baseConnector.insertInfo(request.getParameter("Login"), request.getParameter("Password"));
-                HttpSession hs = request.getSession(true);
-                hs.setAttribute("Login", request.getParameter("Login"));
+                HttpSession httpSession = request.getSession(true);
+                httpSession.setAttribute("Login", Utils.specCharsConverter(request.getParameter("Login")));
                 response.sendRedirect("mainpage.jsp");
             } catch (SQLException ex) {
                 if (ex.getMessage().contains("ORA-00001:")) {
@@ -74,6 +78,8 @@ public class loginProcessor extends HttpServlet {
                 }
             } catch (NoSuchAlgorithmException ex) {
                 Utils.sendError("security error", null, response, request);
+            } catch (InvalidDataException e) {
+                Utils.sendMessage("", "Please, enter your login without special characters like \"\\\" or \"/\"", "", response, request);
             }
         } else {
             Utils.sendMessage("", "Check form", "index.jsp", response, request);

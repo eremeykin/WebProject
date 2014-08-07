@@ -48,13 +48,14 @@ public class DataBaseConnector {
         }
     }
 // Удалить !!!
-    public void executeSQLcmd(String sqlCmd) throws SQLException {
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        statement.executeQuery(sqlCmd);
-    }
+//
+//    public void executeSQLcmd(String sqlCmd) throws SQLException {
+//        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//        statement.executeQuery(sqlCmd);
+//    }
 
     public void insertInfo(String login, String password) throws SQLException, NoSuchAlgorithmException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO \"USERS_INFO\" VALUES (?, ?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO \"USERS_INFO\" (\"ID\", \"LOGIN\", \"PASSWORD\") VALUES (users_id.nextval, ?, ?)");
         preparedStatement.setNString(1, login);
         password = Utils.getSHA(password);
         preparedStatement.setNString(2, password);
@@ -76,5 +77,5 @@ public class DataBaseConnector {
             return false;
         }
     }
-    
+
 }
