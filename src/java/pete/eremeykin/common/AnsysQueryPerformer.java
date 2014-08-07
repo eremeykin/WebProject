@@ -6,7 +6,6 @@
 package pete.eremeykin.common;
 
 import java.io.*;
-import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
@@ -18,13 +17,8 @@ import org.xml.sax.SAXException;
 // ошибки работы с файлами
 public class AnsysQueryPerformer {
 
-    private static String ansysDir;
 
-    public AnsysQueryPerformer() throws ParserConfigurationException, SAXException, IOException {
-            ansysDir = Utils.getSetting("Ansys_dir", "path");
-    }
-
-    public String runQuery(String query, String userDirName, String projectName) throws IOException, FileNotFoundException, SAXException, ParserConfigurationException, InterruptedException {
+    public void runQuery(String query, String userDirName, String projectName) throws IOException, FileNotFoundException, SAXException, ParserConfigurationException, InterruptedException {
         String queryFilePath = queryToFile(query, userDirName, projectName);
         ProcessBuilder pb = new ProcessBuilder("cmd");
         pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
@@ -32,20 +26,18 @@ public class AnsysQueryPerformer {
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
         BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
         BufferedOutputStream out = new BufferedOutputStream(p.getOutputStream());
-        String command = "\"" + ansysDir + "\"";
-        String setDir = "-dir " + Utils.getSetting("Working_dir", "path") + "\\" + userDirName + "\\" + projectName;
+        String command = "\"" + ConfigLoader.ANSYS_DIR + "\"";
+        String setDir = "-dir " + ConfigLoader.WORKING_DIR + "\\" + userDirName + "\\" + projectName;
         String setJobName = "-j " + projectName;
         String setInputFile = "-i " + "\"" + queryFilePath + "\"";
-        String setOutputFile = "-o " + "\"" + Utils.getSetting("Working_dir", "path") + "\\" + userDirName + "\\" + projectName + "\\output.txt" + "\"";
+        String setOutputFile = "-o " + "\"" + ConfigLoader.WORKING_DIR + "\\" + userDirName + "\\" + projectName + "\\output.txt" + "\"";
         command = command + " " + setDir + " " + setInputFile + " " + setOutputFile + " " + setJobName + " -b list " + "\n";
         out.write(command.getBytes());
         out.flush();
-        String result = "ok!";
-        return result;
     }
 
     public String queryToFile(String query, String userName, String projectName) throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
-        String workingDir = Utils.getSetting("Working_dir", "path");
+        String workingDir = ConfigLoader.WORKING_DIR;
         String dirName = workingDir + "\\" + userName + "\\" + projectName;
         File dir = new File(dirName);
         dir.mkdirs();

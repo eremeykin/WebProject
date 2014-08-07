@@ -40,9 +40,10 @@ public class loginProcessor extends HttpServlet {
             throws ServletException, IOException {
         if (request.getParameter("Submit") != null) {
             processSubmit(request, response);
-        }
-        if (request.getParameter("Register") != null) {
+        } else if (request.getParameter("Register") != null) {
             processRegister(request, response);
+        } else {
+            Utils.send404(response, request);
         }
     }
 

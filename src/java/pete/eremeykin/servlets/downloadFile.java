@@ -5,19 +5,14 @@
  */
 package pete.eremeykin.servlets;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-import pete.eremeykin.common.AnsysQueryPerformer;
+import javax.servlet.http.HttpSession;
 import pete.eremeykin.common.ConfigLoader;
 import pete.eremeykin.common.Utils;
 
@@ -25,8 +20,8 @@ import pete.eremeykin.common.Utils;
  *
  * @author Pete
  */
-@WebServlet(name = "runQuery", urlPatterns = {"/runQuery"})
-public class runQuery extends HttpServlet {
+@WebServlet(name = "downloadFile", urlPatterns = {"/downloadFile"})
+public class downloadFile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,33 +35,18 @@ public class runQuery extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameter("Query") != null) {
-            try {
-                AnsysQueryPerformer aqp = new AnsysQueryPerformer();
-                String workingDir = ConfigLoader.WORKING_DIR;
-                String userDirName = request.getSession().getAttribute("Login").toString();
-                String projectName=request.getParameter("ProjectName");
-                String dirName = workingDir + "\\" + userDirName + "\\" + projectName;
-//                aqp.queryToFile(request.getParameter("Query"), userDirName, projectName);
-                aqp.runQuery(request.getParameter("Query"), userDirName, projectName);
-                response.sendRedirect("mainpage.jsp");
-//                    out.print("Performed" + aqp.runQuery(null));
-//                    out.print(aqp.queryToFile(request.getParameter("Query"), request.getSession().getAttribute("Login").toString()));
-//                    out.print(aqp.printDirTree("E:\\"));
-//                    response.sendRedirect("splitter.jsp");
-//                    Utils.sendMessage(aqp.printDirTree("E:\\Книги&Журналы\\asm"), null, "mainpage.jsp", response, request);
-//                    Utils.sendFile("C:/Users/Пётр/Downloads/sap-tatneft.pdf", response, request);
-
-            } catch (ParserConfigurationException | SAXException ex) {
-                Utils.sendError("configuration error", "An error occurred while reading the configuration file", response, request);
-            } catch (FileNotFoundException ex) {
-                Utils.sendError("configuration not found ", "the configuration file is not found, so site is not working. Please, try again later", response, request);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(runQuery.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession httpSession = request.getSession(true);
+            String userName = (String) httpSession.getAttribute("Login");
+            String filePath = request.getParameter("file");
+            Utils.sendFile(ConfigLoader.WORKING_DIR+"\\"+filePath, response, request);
+//            out.println(filePath);
+////            if (userName)
+//            out.println("</body>");
+//            out.println("</html>");
         }
-
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

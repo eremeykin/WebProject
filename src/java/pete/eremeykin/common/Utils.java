@@ -46,7 +46,7 @@ public class Utils {
         try {
             request.getRequestDispatcher(URL).forward(request, response);
         } catch (ServletException | IOException ex) {
-            sendError("error while sending message", ex.getMessage(), response, request);
+//            sendError("error while sending message", ex.getMessage(), response, request);
         }
     }
 
@@ -64,35 +64,18 @@ public class Utils {
     }
 
     public static String specCharsConverter(String str) {
-        str=str.replace("&", "&amp");
-        str=str.replace(">", "&gt");
-        str=str.replace("<", "&lt");
-        str=str.replace("\"", "&quot");
+        str = str.replace("&", "&amp");
+        str = str.replace(">", "&gt");
+        str = str.replace("<", "&lt");
+        str = str.replace("\"", "&quot");
         return str;
-    }
-
-    private static Document getDoc() throws FileNotFoundException, SAXException, IOException, ParserConfigurationException {
-        Document doc;
-        DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
-        f.setValidating(false);
-        DocumentBuilder builder = f.newDocumentBuilder();
-        File config = new File("C:\\Users\\Пётр\\Documents\\NetBeansProjects\\AnsysProject\\src\\java\\config\\config.xml");
-        doc = builder.parse(config);
-        return doc;
-    }
-
-    public static String getSetting(String tagName, String attrName) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException {
-        Document doc = getDoc();
-        NodeList nl = doc.getElementsByTagName(tagName);
-        Element el = (Element) nl.item(0);
-        return el.getAttribute(attrName);
     }
 
     //source: http://www.codenet.ru/webmast/java/jspupl.php
     public static void sendFile(String fileName, HttpServletResponse response, HttpServletRequest request) {
         response.setHeader("Content-Type", "application/octet-stream;");
-        String shortname = fileName.substring(fileName.lastIndexOf("\\") + 1, fileName.length());
-        response.setHeader("Content-Disposition", "filename=\"" + shortname + "\"");
+        String shortName = fileName.substring(fileName.lastIndexOf("\\") + 1, fileName.length());
+        response.setHeader("Content-Disposition", "filename=\"" + shortName + "\"");
         try {
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileName));
             BufferedOutputStream binout = new BufferedOutputStream(response.getOutputStream());
@@ -104,7 +87,7 @@ public class Utils {
             binout.close();
             in.close();
         } catch (IOException ioe) {
-            sendError("error while sending file", ioe.getMessage(), response, request);
+            sendError("error while sending file", "An error occurred while trying to download file:"+shortName, response, request);
         }
     }
 
@@ -114,7 +97,10 @@ public class Utils {
         dir.mkdirs();
         String[] content = dir.list();
         String res = "<div class=\"box\">\n"
-                + "<h4><span><nobr>" + "<img src=\"res/images/folder.png\" height=\"15\" width=\"15\">&nbsp" + dir.getName() + "</nobr></span></h4>\n"
+                + "<h4><span><nobr>"
+                + "<img src=\"res/images/folder.png\" height=\"15\" width=\"15\">&nbsp"
+                + dir.getName()
+                + "</nobr></span></h4>\n"
                 + "<ul style=\"margin-left:15px\">";
         for (String d : dir.list()) {
             File currFile = new File(startDir + "\\" + d);
@@ -126,7 +112,16 @@ public class Utils {
         for (String d : dir.list()) {
             File currFile = new File(startDir + "\\" + d);
             if (!currFile.isDirectory()) {
-                res = res + "<li>" + d + "</li>" + "\n";
+                int beginIndex = ConfigLoader.WORKING_DIR.length();
+                String requestedFilePath = currFile.getAbsolutePath();
+                requestedFilePath = requestedFilePath.substring(beginIndex);
+                res = res
+                        + "<li>"
+                        + "<a href=\"downloadFile?file=" + requestedFilePath + "\"\">"
+                        + d
+                        + "</a>"
+                        + "</li>"
+                        + "\n";
             }
         }
 
